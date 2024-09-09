@@ -19,15 +19,15 @@ class NewsContentPage extends GetView<NewsContentController> {
         actions: [
           PopupMenuButton(
             itemBuilder: ((context) => [
-                  PopupMenuItem(
-                    onTap: controller.openBrowser,
-                    child: Text(LocaleKeys.blog_content_browser.tr),
-                  ),
-                  PopupMenuItem(
-                    onTap: controller.share,
-                    child: Text(LocaleKeys.blog_content_share.tr),
-                  ),
-                ]),
+              PopupMenuItem(
+                onTap: controller.openBrowser,
+                child: Text(LocaleKeys.blog_content_browser.tr),
+              ),
+              PopupMenuItem(
+                onTap: controller.share,
+                child: Text(LocaleKeys.blog_content_share.tr),
+              ),
+            ]),
             child: const SizedBox(
               width: 48,
               height: 48,
@@ -40,18 +40,19 @@ class NewsContentPage extends GetView<NewsContentController> {
         children: [
           InAppWebView(
             key: controller.webViewkey,
-            initialOptions: controller.webViewGroupOptions,
+            initialSettings: controller.appWebViewSettings,
+            //initialOptions: controller.webViewGroupOptions,
             onWebViewCreated: controller.onWebViewCreated,
             shouldOverrideUrlLoading: controller.shouldOverrideUrlLoading,
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageLoadding.value,
               child: const AppLoaddingWidget(),
             ),
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageError.value,
               child: AppErrorWidget(
                 errorMsg: controller.errorMsg.value,
@@ -62,9 +63,9 @@ class NewsContentPage extends GetView<NewsContentController> {
         ],
       ),
       bottomNavigationBar: Obx(
-        () => Visibility(
+            () => Visibility(
           visible:
-              !controller.pageLoadding.value && !controller.pageError.value,
+          !controller.pageLoadding.value && !controller.pageError.value,
           child: BottomAppBar(
             child: SizedBox(
               height: 56,

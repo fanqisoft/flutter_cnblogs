@@ -12,18 +12,18 @@ class BlogContentPage extends StatelessWidget {
   const BlogContentPage({required this.url, Key? key}) : super(key: key);
   //GetView+Tag的方式好像有BUG,手动添加控制器
   BlogContentController get controller => Get.put(
-        BlogContentController(
-          url: url,
-        ),
-        tag: url,
-      );
+    BlogContentController(
+      url: url,
+    ),
+    tag: url,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Obx(
-          () => Text(
+              () => Text(
             controller.title.value,
           ),
         ),
@@ -31,11 +31,11 @@ class BlogContentPage extends StatelessWidget {
         actions: [
           PopupMenuButton(
             itemBuilder: ((context) => [
-                  PopupMenuItem(
-                    onTap: controller.openBrowser,
-                    child: Text(LocaleKeys.blog_content_browser.tr),
-                  ),
-                ]),
+              PopupMenuItem(
+                onTap: controller.openBrowser,
+                child: Text(LocaleKeys.blog_content_browser.tr),
+              ),
+            ]),
             child: const SizedBox(
               width: 48,
               height: 48,
@@ -48,18 +48,19 @@ class BlogContentPage extends StatelessWidget {
         children: [
           InAppWebView(
             key: controller.webViewkey,
-            initialOptions: controller.webViewGroupOptions,
+            initialSettings: controller.appWebViewSettings,
+            //initialOptions: controller.webViewGroupOptions,
             onWebViewCreated: controller.onWebViewCreated,
             shouldOverrideUrlLoading: controller.shouldOverrideUrlLoading,
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageLoadding.value,
               child: const AppLoaddingWidget(),
             ),
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageError.value,
               child: AppErrorWidget(
                 errorMsg: controller.errorMsg.value,
@@ -70,9 +71,9 @@ class BlogContentPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Obx(
-        () => Visibility(
+            () => Visibility(
           visible:
-              !controller.pageLoadding.value && !controller.pageError.value,
+          !controller.pageLoadding.value && !controller.pageError.value,
           child: BottomAppBar(
             child: SizedBox(
               height: 56,
@@ -82,7 +83,7 @@ class BlogContentPage extends StatelessWidget {
                     child: TextButton.icon(
                       onPressed: controller.addOrDelBookmark,
                       icon: Obx(
-                        () => Icon(
+                            () => Icon(
                           controller.bookmarked.value
                               ? Remix.star_fill
                               : Remix.star_line,

@@ -18,12 +18,13 @@ class WebViewPage extends GetView<AppWebViewController> {
       body: Stack(
         children: [
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: controller.pageError.value,
               child: InAppWebView(
                 key: controller.webViewkey,
-                initialUrlRequest: URLRequest(url: Uri.parse(controller.url)),
-                initialOptions: controller.webViewGroupOptions,
+                initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(controller.url))),
+                initialSettings: controller.appWebViewSettings,
+                //initialOptions: controller.webViewGroupOptions,
                 onWebViewCreated: controller.onWebViewCreated,
                 onLoadStart: controller.onLoadStart,
                 onLoadError: controller.onLoadError,
@@ -50,7 +51,7 @@ class WebViewPage extends GetView<AppWebViewController> {
             ),
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageError.value,
               child: AppErrorWidget(
                 errorMsg: controller.errorMsg.value,
@@ -131,7 +132,7 @@ class WebViewPage extends GetView<AppWebViewController> {
             top: 0,
             left: 0,
             child: Obx(
-              () => Offstage(
+                  () => Offstage(
                 offstage: !controller.pageLoadding.value,
                 child: Container(
                   alignment: Alignment.topLeft,

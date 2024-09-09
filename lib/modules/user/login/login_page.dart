@@ -17,11 +17,12 @@ class LoginPage extends GetView<LoginController> {
       body: Stack(
         children: [
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: controller.pageError.value,
               child: InAppWebView(
                 key: controller.webViewkey,
-                initialOptions: controller.webViewGroupOptions,
+                initialSettings: controller.appWebViewSettings,
+                // initialOptions: controller.webViewGroupOptions,
                 onWebViewCreated: controller.onWebViewCreated,
                 onLoadStart: controller.onLoadStart,
                 onLoadError: controller.onLoadError,
@@ -31,7 +32,7 @@ class LoginPage extends GetView<LoginController> {
             ),
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageError.value,
               child: AppErrorWidget(
                 errorMsg: controller.errorMsg.value,
@@ -43,7 +44,7 @@ class LoginPage extends GetView<LoginController> {
             top: 0,
             left: 0,
             child: Obx(
-              () => Offstage(
+                  () => Offstage(
                 offstage: !controller.pageLoadding.value,
                 child: Container(
                   alignment: Alignment.topLeft,

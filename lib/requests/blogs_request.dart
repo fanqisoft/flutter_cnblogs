@@ -42,8 +42,10 @@ class BlogsRequest {
       },
       withApiAuth: true,
     );
-    for (var item in result) {
-      ls.add(BlogListItemModel.fromJson(item));
+    if(result is List && result.isNotEmpty){
+      for (var item in result) {
+        ls.add(BlogListItemModel.fromJson(item));
+      }
     }
     return ls;
   }

@@ -18,15 +18,15 @@ class KnowledgeContentPage extends GetView<KnowledgeContentController> {
         actions: [
           PopupMenuButton(
             itemBuilder: ((context) => [
-                  PopupMenuItem(
-                    onTap: controller.openBrowser,
-                    child: Text(LocaleKeys.blog_content_browser.tr),
-                  ),
-                  PopupMenuItem(
-                    onTap: controller.share,
-                    child: Text(LocaleKeys.blog_content_share.tr),
-                  ),
-                ]),
+              PopupMenuItem(
+                onTap: controller.openBrowser,
+                child: Text(LocaleKeys.blog_content_browser.tr),
+              ),
+              PopupMenuItem(
+                onTap: controller.share,
+                child: Text(LocaleKeys.blog_content_share.tr),
+              ),
+            ]),
             child: const SizedBox(
               width: 48,
               height: 48,
@@ -39,18 +39,19 @@ class KnowledgeContentPage extends GetView<KnowledgeContentController> {
         children: [
           InAppWebView(
             key: controller.webViewkey,
-            initialOptions: controller.webViewGroupOptions,
+            initialSettings: controller.appWebViewSettings,
+            //initialOptions: controller.webViewGroupOptions,
             onWebViewCreated: controller.onWebViewCreated,
             shouldOverrideUrlLoading: controller.shouldOverrideUrlLoading,
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageLoadding.value,
               child: const AppLoaddingWidget(),
             ),
           ),
           Obx(
-            () => Offstage(
+                () => Offstage(
               offstage: !controller.pageError.value,
               child: AppErrorWidget(
                 errorMsg: controller.errorMsg.value,

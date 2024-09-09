@@ -10,12 +10,16 @@ class AppWebViewController extends BaseController {
   var title = "".obs;
   final UniqueKey webViewkey = UniqueKey();
   late InAppWebViewController? webViewController;
-  final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      transparentBackground: true,
-      useShouldOverrideUrlLoading: true,
-    ),
+  final InAppWebViewSettings appWebViewSettings = InAppWebViewSettings(
+    transparentBackground: true,
+    useShouldOverrideUrlLoading: true,
   );
+  // final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
+  //   crossPlatform: InAppWebViewOptions(
+  //     transparentBackground: true,
+  //     useShouldOverrideUrlLoading: true,
+  //   ),
+  // );
   void onWebViewCreated(InAppWebViewController controller) {
     webViewController = controller;
     pageLoadding.value = true;

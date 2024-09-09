@@ -11,13 +11,18 @@ class LoginController extends BaseController {
   final UniqueKey webViewkey = UniqueKey();
   final OAuthRequest request = OAuthRequest();
   late InAppWebViewController? webViewController;
-  final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      transparentBackground: true,
-      useShouldOverrideUrlLoading: true,
-      clearCache: true,
-    ),
+  final InAppWebViewSettings appWebViewSettings = InAppWebViewSettings(
+    transparentBackground: true,
+    useShouldOverrideUrlLoading: true,
+    clearCache: true,
   );
+  // final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
+  //   crossPlatform: InAppWebViewOptions(
+  //     transparentBackground: true,
+  //     useShouldOverrideUrlLoading: true,
+  //     clearCache: true,
+  //   ),
+  // );
   void onWebViewCreated(InAppWebViewController controller) async {
     webViewController = controller;
     pageLoadding.value = true;
@@ -39,7 +44,7 @@ class LoginController extends BaseController {
         "nonce": DateTime.now().millisecondsSinceEpoch.toString(),
       },
     );
-    webViewController?.loadUrl(urlRequest: URLRequest(url: uri));
+    webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri.uri(uri)));
   }
 
   void refreshWeb() {

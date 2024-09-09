@@ -9,12 +9,16 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 class BaseWebViewController extends BaseController {
   final UniqueKey webViewkey = UniqueKey();
   late InAppWebViewController? webViewController;
-  final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      transparentBackground: true,
-      useShouldOverrideUrlLoading: true,
-    ),
+  final InAppWebViewSettings appWebViewSettings = InAppWebViewSettings(
+    transparentBackground: true,
+    useShouldOverrideUrlLoading: true,
   );
+  // final InAppWebViewGroupOptions webViewGroupOptions = InAppWebViewGroupOptions(
+  //   crossPlatform: InAppWebViewOptions(
+  //     transparentBackground: true,
+  //     useShouldOverrideUrlLoading: true,
+  //   ),
+  // );
   void onWebViewCreated(InAppWebViewController controller) {
     webViewController = controller;
     webViewController?.addJavaScriptHandler(
@@ -36,7 +40,7 @@ class BaseWebViewController extends BaseController {
 
   final RegExp blogRegExp1 = RegExp(r'cnblogs.com/(.*?)/p/(.*?).html');
   final RegExp blogRegExp2 =
-      RegExp(r'cnblogs.com/(.*?)/archive/\d+/\d+/\d+/(.*?).html');
+  RegExp(r'cnblogs.com/(.*?)/archive/\d+/\d+/\d+/(.*?).html');
   Future<NavigationActionPolicy?> shouldOverrideUrlLoading(
       InAppWebViewController controller, NavigationAction action) async {
     var uri = action.request.url!;
